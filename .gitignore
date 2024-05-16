@@ -1,0 +1,8 @@
+/client/node_modules
+/client/package-lock.json
+/client/.env
+
+/server/EmployeeManagementApp/.env
+/server/EmployeeManagementApp/Properties
+/server/EmployeeManagementApp/appsettings.json
+/server/uploads

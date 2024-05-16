@@ -1,0 +1,149 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.hero {
+  background: linear-gradient(rgba(0,0,0, 0.5), rgba(0,0,0, 0.6)), url('/public/images/hero-img.jpg');
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  height: 100vh;
+  padding: 0;
+  margin: auto;
+  color: white;
+}
+
+.add-employee-form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.add-employee-form input{
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.add-btn {
+  max-width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 10px;
+}
+
+.add-btn:hover {
+  background-color: #45a049;
+}
+
+/* Navigation */
+.navigation {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  position: fixed;
+  padding: 10px;
+  margin: 10px;
+}
+
+.nav-logo {
+  color: white;
+  font-size: 3rem;
+  padding-bottom: 5px;
+}
+
+.nav-tabs {
+  display: flex;
+  color: white;
+}
+
+.nav-tabs a {
+  padding-left: 5px;
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  padding-top: 2px;
+}
+
+.nav-tabs a:hover {
+  text-decoration: underline;
+}
+
+/* Login */
+
+.login-container {
+  background: linear-gradient(rgba(0,0,0, 0.5), rgba(0,0,0, 0.6)), url('/public/images/hero-img.jpg');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; ;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  color: white;
+}
+
+.login-container span {
+  padding: 10px;
+}
+
+.login-container span a {
+  color: white;
+ padding-left: 5px;
+}
+
+.login-form {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-btn {
+  width: 300px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #45a049;
+}
