@@ -51,3 +51,5 @@ C:\Users\nimbu\OneDrive\Desktop\EmployeeManagmentSystemC#\server\EmployeeManagem
 C:\Users\nimbu\OneDrive\Desktop\EmployeeManagmentSystemC#\server\EmployeeManagementApp\bin\Debug\net8.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\nimbu\OneDrive\Desktop\EmployeeManagmentSystemC#\server\EmployeeManagementApp\obj\Debug\net8.0\EmployeeManagementApp.csproj.AssemblyReference.cache
 C:\Users\nimbu\OneDrive\Desktop\EmployeeManagmentSystemC#\server\EmployeeManagementApp\obj\Debug\net8.0\Employee.8111CF64.Up2Date
+C:\Users\nimbu\OneDrive\Desktop\EmployeeManagmentSystemC#\server\EmployeeManagementApp\bin\Debug\net8.0\dotenv.net.dll
+C:\Users\nimbu\OneDrive\Desktop\EmployeeManagmentSystemC#\server\EmployeeManagementApp\obj\Debug\net8.0\EmployeeManagementApp.sourcelink.json

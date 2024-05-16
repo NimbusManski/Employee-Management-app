@@ -38,7 +38,7 @@ app.MapGet("/", () => "Hello World!");
 
 app.MapPost("/register", async (User user, MySqlConnection connection) => {
 try {
-    var q = "INSERT INTO employee-manager.users (username, password) VALUES (@Username, @Password)";
+    var q = "INSERT INTO employee_manager.users (username, password) VALUES (@Username, @Password)";
 
     await connection.OpenAsync();
     using var cmd = new MySqlCommand(q, connection);
