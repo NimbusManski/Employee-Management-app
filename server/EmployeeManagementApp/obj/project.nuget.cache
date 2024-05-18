@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "HCUh0QS8MY5gEkbT4e1/auiEZe1vStLsEK2Q0wJI/m9XtaF0YOYjN1FgjPqE+3pjrxFycpIBqNDvEcAnkLTUKw==",
+  "dgSpecHash": "lTgSeSOb7H3v1+0r3so9hEzOaA5ROYfvC1r9rf/qSWOaNeaN8yjyy9YkwcRx4X2yNeRS56R8/xLNUAXH2NUMmg==",
   "success": true,
   "projectFilePath": "C:\\Users\\nimbu\\OneDrive\\Desktop\\EmployeeManagmentSystemC#\\server\\EmployeeManagementApp\\EmployeeManagementApp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\nimbu\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\nimbu\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\nimbu\\.nuget\\packages\\dotenv.net\\3.1.3\\dotenv.net.3.1.3.nupkg.sha512",
     "C:\\Users\\nimbu\\.nuget\\packages\\google.protobuf\\3.25.1\\google.protobuf.3.25.1.nupkg.sha512",

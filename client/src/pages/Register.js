@@ -17,7 +17,7 @@ export default function Register() {
             body: JSON.stringify({ username, password }),
           });
     
-          if (response.status === 200) {
+          if (response.status === 201) {
             alert("Registration successful! You can now login");
             navigate("/login");
           }
