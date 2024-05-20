@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Data.SqlTypes;
 using dotenv.net;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,30 +40,78 @@ app.UseRouting();
 
 app.MapGet("/", () => "Hello World fun!");
 
-app.MapPost("/register", async (User user, IPasswordHasher passwordHasher, MySqlConnection connection) => {
-try {
+app.MapPost("/register", async (User user, IPasswordHasher passwordHasher, MySqlConnection connection) =>
+{
+    try
+    {
 
-    string hashedPassword = passwordHasher.HashPassword(user.Password);
+        string hashedPassword = passwordHasher.HashPassword(user.Password);
 
-    var q = "INSERT INTO employee_manager.users (`username`, `password`) VALUES (?, ?)";
-    
-    Console.WriteLine(q);
+        var q = "INSERT INTO employee_manager.users (`username`, `password`) VALUES (?, ?)";
 
-    await connection.OpenAsync();
-    using var cmd = new MySqlCommand(q, connection);
-    cmd.Parameters.AddWithValue("@Username", user.Username);
-    cmd.Parameters.AddWithValue("@Password", hashedPassword);
-    await cmd.ExecuteNonQueryAsync();
+        Console.WriteLine(q);
 
-   return Results.Json(new { StatusCode = 201, Message = "User created successfully" });
+        await connection.OpenAsync();
+        using var cmd = new MySqlCommand(q, connection);
+        cmd.Parameters.AddWithValue("@Username", user.Username);
+        cmd.Parameters.AddWithValue("@Password", hashedPassword);
+        await cmd.ExecuteNonQueryAsync();
+
+        return Results.Json(new { StatusCode = 201, Message = "User created successfully" });
 
 
-} catch (Exception ex) {
-    return Results.Json(new { StatusCode = 500, Message = $"Error creating user: {ex}" });
-}
-finally {
-    connection.Close();
-}
+    }
+    catch (Exception ex)
+    {
+        return Results.Json(new { StatusCode = 500, Message = $"Error creating user: {ex}" });
+    }
+    finally
+    {
+        connection.Close();
+    }
 });
+
+app.MapPost("/login", async (UserLogin userLogin, IPasswordHasher passwordHasher, MySqlConnection connection) =>
+{
+    try
+    {
+        var q = "SELECT `password` FROM employee_manager.users WHERE `username` = @Username";
+        await connection.OpenAsync();
+        using var cmd = new MySqlCommand(q, connection);
+        cmd.Parameters.AddWithValue("@Username", userLogin.Username);
+        var result = await cmd.ExecuteScalarAsync();
+
+
+        if (result == null)
+        {
+            return Results.Json(new { StatusCode = 401, Message = "Invalid username or password" });
+        }
+
+        var storedHashedPassword = result as string;
+        if (storedHashedPassword == null)
+        {
+            return Results.Json(new { StatusCode = 401, Message = "Invalid username or password" });
+        }
+
+        var passwordMatch = passwordHasher.VerifyPassword(storedHashedPassword, userLogin.Password);
+
+        if (!passwordMatch)
+        {
+            return Results.Json(new { StatusCode = 401, Message = "Invalid username or password" });
+        }
+
+        return Results.Json(new { StatusCode = 200, Message = "Login successful" });
+    }
+    catch (Exception ex)
+    {
+        return Results.Json(new { StatusCode = 500, Message = $"Error logging in: {ex.Message}" });
+    }
+    finally
+    {
+        await connection.CloseAsync();
+    }
+}); 
+
+
 
 app.Run();
