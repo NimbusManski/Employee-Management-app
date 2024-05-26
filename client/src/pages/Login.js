@@ -18,6 +18,12 @@ export default function Login() {
       });
 
       if (response.status === 200) {
+        const expiryTime = new Date();
+        expiryTime.setTime(expiryTime.getTime() + (1 * 60 * 60 * 1000));
+
+        document.cookie =  `token=${username}; Secure, SameSite=Strict; Expires=${expiryTime.toUTCString()}; Path=/`;
+        console.log(document.cookie);
+
         navigate("/");
       }
     } catch (err) {

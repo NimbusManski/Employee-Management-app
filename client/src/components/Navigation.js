@@ -5,6 +5,22 @@ import { Link } from "react-router-dom"
 export default function Navigation() {
 const [username, setUsername] = useState("");
 
+
+useEffect(() => {
+  async function fetchProfile() {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/profile`, {
+    method: "GET",
+    credentials: "include"
+  })
+  console.log(response);
+}
+
+  
+
+  fetchProfile();
+}, [])
+
+
   return (
     <div className="navigation">
      <h1 className="nav-logo">Employee Manager</h1>

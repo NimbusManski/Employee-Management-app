@@ -71,7 +71,7 @@ app.MapPost("/register", async (User user, IPasswordHasher passwordHasher, MySql
     }
 });
 
-app.MapPost("/login", async (UserLogin userLogin, IPasswordHasher passwordHasher, MySqlConnection connection) =>
+app.MapPost("/login", async (UserLogin userLogin, IPasswordHasher passwordHasher, MySqlConnection connection, HttpContext httpContext ) =>
 {
     try
     {
@@ -100,7 +100,21 @@ app.MapPost("/login", async (UserLogin userLogin, IPasswordHasher passwordHasher
             return Results.Json(new { StatusCode = 401, Message = "Invalid username or password" });
         }
 
+            
+        //     var cookieOptions = new CookieOptions {
+        //     HttpOnly = true,
+        //     Secure = true,
+        //     SameSite = SameSiteMode.Strict,
+        //     Expires = DateTime.UtcNow.AddDays(1)
+        // };
+        
+        // var cookieValue = "token";
+
+        // httpContext.Response.Cookies.Append("token", cookieValue, cookieOptions);
+
         return Results.Json(new { StatusCode = 200, Message = "Login successful" });
+
+
     }
     catch (Exception ex)
     {
@@ -112,6 +126,8 @@ app.MapPost("/login", async (UserLogin userLogin, IPasswordHasher passwordHasher
     }
 }); 
 
-
+app.MapGet("/profile", async () => {
+  
+});
 
 app.Run();
