@@ -15,10 +15,8 @@ useEffect(() => {
   console.log(response);
 }
 
-  
-
   fetchProfile();
-}, [])
+}, []);
 
 
   return (
