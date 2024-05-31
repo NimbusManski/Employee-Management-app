@@ -71,50 +71,63 @@ app.MapPost("/register", async (User user, IPasswordHasher passwordHasher, MySql
     }
 });
 
-app.MapPost("/login", async (UserLogin userLogin, IPasswordHasher passwordHasher, MySqlConnection connection, HttpContext httpContext ) =>
+app.MapPost("/login", async (UserLogin userLogin, IPasswordHasher passwordHasher, MySqlConnection connection, HttpContext httpContext) =>
 {
     try
     {
-        var q = "SELECT `password` FROM employee_manager.users WHERE `username` = @Username";
+        
+        var q = "SELECT `id`, `username`, `password` FROM employee_manager.users WHERE `username` = @Username";
+        Console.WriteLine(q);
+
         await connection.OpenAsync();
         using var cmd = new MySqlCommand(q, connection);
         cmd.Parameters.AddWithValue("@Username", userLogin.Username);
-        var result = await cmd.ExecuteScalarAsync();
+        Console.WriteLine(userLogin.Username);
 
+        using var reader = await cmd.ExecuteReaderAsync();
 
-        if (result == null)
+        if (!reader.HasRows)
         {
             return Results.Json(new { StatusCode = 401, Message = "Invalid username or password" });
         }
 
-        var storedHashedPassword = result as string;
-        if (storedHashedPassword == null)
+        int userId = 0;
+        string storedHashedPassword = null;
+
+        while (await reader.ReadAsync())
+        {
+            userId = reader.GetInt32(0); 
+            storedHashedPassword = reader.GetString(2); 
+
+           
+            Console.WriteLine(userId);
+            Console.WriteLine(storedHashedPassword);
+        }
+
+        if (string.IsNullOrEmpty(storedHashedPassword) || userId == 0)
         {
             return Results.Json(new { StatusCode = 401, Message = "Invalid username or password" });
         }
 
         var passwordMatch = passwordHasher.VerifyPassword(storedHashedPassword, userLogin.Password);
-
         if (!passwordMatch)
         {
             return Results.Json(new { StatusCode = 401, Message = "Invalid username or password" });
         }
 
-            
-        //     var cookieOptions = new CookieOptions {
-        //     HttpOnly = true,
-        //     Secure = true,
-        //     SameSite = SameSiteMode.Strict,
-        //     Expires = DateTime.UtcNow.AddDays(1)
-        // };
-        
-        // var cookieValue = "token";
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddHours(1) 
+        };
 
-        // httpContext.Response.Cookies.Append("token", cookieValue, cookieOptions);
+        var cookieValue = $"{userLogin.Username}:{userId}";
+         Console.WriteLine(cookieValue);
+        httpContext.Response.Cookies.Append("token", cookieValue, cookieOptions);
 
         return Results.Json(new { StatusCode = 200, Message = "Login successful" });
-
-
     }
     catch (Exception ex)
     {
@@ -124,7 +137,8 @@ app.MapPost("/login", async (UserLogin userLogin, IPasswordHasher passwordHasher
     {
         await connection.CloseAsync();
     }
-}); 
+});
+
 
 app.MapGet("/profile", async () => {
   
